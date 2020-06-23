@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Typography, Button, Form, Input } from 'antd';
 import FileUpload from '../../utils/FileUpload';
+import Axios from 'axios';
 
 const { TextArea } = Input;
 
@@ -14,13 +15,13 @@ const Continents = [
     {key: 7, value: "Antartica"}
 ]
 
-function UploadProductPage() {
+function UploadProductPage(props) {
 
     const [Title, setTitle] = useState("")
     const [Description, setDescription] = useState("")
     const [Price, setPrice] = useState(0)
     const [Continent, setContinent] = useState(1)
-    const [Image, setImage] = useState("")
+    const [Images, setImages] = useState("")
 
     const titleChangeHandler = (event) => {
         setTitle(event.currentTarget.value)
@@ -39,8 +40,36 @@ function UploadProductPage() {
     }
 
     const updateImages = (newImages) => {
-        setImage(newImages)
+        setImages(newImages)
+    }
 
+    const onSubmit = (event) => {
+        event.preventDefault();
+
+        if(!Title || !Description || !Price || !Continent || !Images ){
+            return alert("모든 정보를 넣어주셔야 합니다.")
+        }
+
+        //서버에 정보를 request 로 보낸다
+        const body = {
+            //로그인된 사람의 id
+            writer: props.user.userData._id,
+            title: Title,
+            description: Description,
+            price: Price,
+            images: Images,
+            continents: Continent,
+        }
+
+        Axios.post("/api/product", body)
+            .then(response => {
+                if(response.data.success) {
+                    alert('상품 업로드에 성공했습니다.')
+                    props.history.push('/')
+                } else {
+                    alert('상품 업로드에 실패했습니다.')
+                }
+            })
     }
 
     return (
@@ -49,7 +78,7 @@ function UploadProductPage() {
                 <h2> 업로드 </h2>
             </div>
 
-            <Form>
+            <Form onSubmit={onSubmit}>
                 {/* {dropzone} */}
                 <FileUpload refreshFunction={updateImages} />
             <br />
@@ -73,7 +102,7 @@ function UploadProductPage() {
             </select>
             <br />
             <br />
-            <Button>
+            <Button onClick={onSubmit}>
                 확인
             </Button>
             </Form>
