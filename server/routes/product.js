@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer');
 
 //=================================
 //             Product
@@ -14,7 +15,7 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).single("file");
 
 router.post("/image", (req, res) => {
   //가져온 이미지를 저장
@@ -22,7 +23,7 @@ router.post("/image", (req, res) => {
       if(err) {
           return req.json({ sucess: false, err })
       } 
-      return res.json({ sucess: this.true, filePath: res.req.file.path , fileName: res.req.file.filename })
+      return res.json({ sucess: true, filePath: res.req.file.path , fileName: res.req.file.filename })
   })
 });
 
