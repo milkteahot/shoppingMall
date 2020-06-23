@@ -38,6 +38,11 @@ function UploadProductPage() {
         setContinent(event.currentTarget.value)
     }
 
+    const updateImages = (newImages) => {
+        setImage(newImages)
+
+    }
+
     return (
         <div style={{ maxWidth:'700px', margin:'2rem auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -46,7 +51,7 @@ function UploadProductPage() {
 
             <Form>
                 {/* {dropzone} */}
-                <FileUpload />
+                <FileUpload refreshFunction={updateImages} />
             <br />
             <br />
             <label>제목</label>
