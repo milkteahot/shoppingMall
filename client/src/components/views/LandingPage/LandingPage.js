@@ -1,22 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { FaCode } from "react-icons/fa";
-import axios from "axios";
+import Axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
-import Meta from "antd/lib/card/Meta"
+// import Meta from "antd/lib/card/Meta"
+import SearchFeature from './Sections/SearchFeature';
+// import { continents, price } from './Sections/Datas';
+
+const { Meta } = Card;
 
 function LandingPage() {
   const [Products, setProducts] = useState([]);
+  const [Skip, setSkip] = useState(0)
+  const [Limit, setLimit] = useState(8)
+  const [PostSize, setPostSize] = useState()
+  const [Filters, setFilters] = useState({
+      continents: [],
+      price: []
+  })
+  const [SearchTerms, setSearchTerms] = useState("")
 
   useEffect(() => {
-    axios.post("/api/product/products").then(response => {
-      if (response.data.success) {
-        console.log(response.data);
-        setProducts(response.data.productInfo);
-      } else {
-        alert("상품을 가져오는데 실패했습니다.");
+      const variables = {
+          skip: Skip,
+          limit: Limit,
       }
-    });
-  }, []);
+      getProducts(variables)
+
+  }, [])
+
+  const getProducts = (variables) => {
+    Axios.post("/api/product/products", variables)
+        .then(response => {
+            if (response.data.success) {
+                // console.log(response.data);
+                // setProducts(response.data.products);
+                setPostSize(response.data.postSize);
+            } else {
+                alert("상품을 가져오는데 실패했습니다.");
+            }
+            });
+        }
 
   const renderCards = Products.map((product, index) => {
     //   console.log("product", product)
@@ -37,6 +60,21 @@ function LandingPage() {
       </Col>
   })
 
+  const updateSearchTerms = (newSearchTerm) => {
+
+      let variables={
+          skip: 0,
+          limit: Limit,
+          filters: Filters,
+          searchTerm: newSearchTerm
+      }
+
+      setSkip(0)
+      setSearchTerms(newSearchTerm)
+      getProducts(variables)
+
+  }
+
   return (
     <div style={{ width: '75%', margin: '3rem auto' }}>
       <div style={{ textAlign: 'center' }}>
@@ -47,6 +85,11 @@ function LandingPage() {
       {/* Filter */}
 
       {/* Search */}
+      <div style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto'}}>
+      <SearchFeature 
+        refreshFunction={updateSearchTerms}
+      />
+      </div>
 
       <Row gutter={[16, 16]}>
         {renderCards}
