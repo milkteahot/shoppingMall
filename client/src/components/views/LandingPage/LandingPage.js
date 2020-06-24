@@ -12,7 +12,6 @@ function LandingPage() {
   const [Products, setProducts] = useState([]);
   const [Skip, setSkip] = useState(0)
   const [Limit, setLimit] = useState(8)
-  const [PostSize, setPostSize] = useState()
   const [Filters, setFilters] = useState({
       continents: [],
       price: []
@@ -30,16 +29,16 @@ function LandingPage() {
 
   const getProducts = (variables) => {
     Axios.post("/api/product/products", variables)
-        .then(response => {
-            if (response.data.success) {
-                // console.log(response.data);
-                // setProducts(response.data.products);
-                setPostSize(response.data.postSize);
-            } else {
-                alert("상품을 가져오는데 실패했습니다.");
-            }
-            });
-        }
+    .then(response => {
+      try {
+          
+        setProducts(response.data.productInfo);
+      } catch(e) {
+          console.log(e)
+        alert("상품을 가져오는데 실패했습니다.");
+      }
+    });
+  }
 
   const renderCards = Products.map((product, index) => {
     //   console.log("product", product)
@@ -60,9 +59,9 @@ function LandingPage() {
       </Col>
   })
 
-  const updateSearchTerms = (newSearchTerm) => {
+  const updateSearchTerm = (newSearchTerm) => {
 
-      let variables={
+      let body={
           skip: 0,
           limit: Limit,
           filters: Filters,
@@ -71,7 +70,7 @@ function LandingPage() {
 
       setSkip(0)
       setSearchTerms(newSearchTerm)
-      getProducts(variables)
+      getProducts(body)
 
   }
 
@@ -87,7 +86,7 @@ function LandingPage() {
       {/* Search */}
       <div style={{ display:'flex', justifyContent:'flex-end', margin:'1rem auto'}}>
       <SearchFeature 
-        refreshFunction={updateSearchTerms}
+        refreshFunction={updateSearchTerm}
       />
       </div>
 

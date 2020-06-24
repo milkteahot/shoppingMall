@@ -39,14 +39,14 @@ const productSchema = mongoose.Schema(
   { timestamp: true }
 );
 
-productSchema.index({
-  title: 'text',
+// productSchema.index({
+//   title: 'text',
   
-}, {
-  weigths: {
-    title: 5
-  }
-})
+// }, {
+//   weigths: {
+//     title: 5
+//   }
+// })
 
 const Product = mongoose.model("Product", productSchema);
 
