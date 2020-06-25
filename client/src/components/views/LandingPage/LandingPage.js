@@ -18,15 +18,15 @@ function LandingPage() {
     continents: [],
     price: []
   });
-  const [SearchTerms, setSearchTerms] = useState("");
+  const [SearchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     let variables = {
       skip: Skip,
       limit: Limit
-    };
-    getProducts(variables);
-  }, []);
+    }
+    getProducts(variables)
+  }, [])
 
   const getProducts = variables => {
     Axios.post("/api/product/products", variables).then(response => {
@@ -40,8 +40,8 @@ function LandingPage() {
       } else {
         alert("상품을 가져오는데 실패했습니다.");
       }
-    });
-  };
+    })
+  }
 
   const loadMoreHandler = () => {
     let skip = Skip + Limit;
@@ -100,9 +100,9 @@ function LandingPage() {
       searchTerm: newSearchTerm
     };
 
-    setSkip(0);
-    setSearchTerms(newSearchTerm);
-    getProducts(variables);
+    setSkip(0)
+    setSearchTerm(newSearchTerm)
+    getProducts(variables)
   };
 
   return (
@@ -128,7 +128,8 @@ function LandingPage() {
           margin: "1rem auto"
         }}
       >
-        <SearchFeature refreshFunction={updateSearchTerm} />
+        <SearchFeature 
+            refreshFunction={updateSearchTerm} />
       </div>
 
       <Row gutter={[16, 16]}>{renderCards}</Row>

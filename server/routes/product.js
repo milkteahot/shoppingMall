@@ -64,7 +64,7 @@ router.post("/products", (req, res) => {
     }
   }
 
-    console.log("findArgs", findArgs);
+    // console.log("findArgs", findArgs);
     // console.log("term", term)
 
   // if (term) {

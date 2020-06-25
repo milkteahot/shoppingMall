@@ -4,20 +4,20 @@ import { Input } from "antd";
 const { Search } = Input;
 
 function SearchFeature(props) {
-  const [SearchTerms, setSearchTerms] = useState("");
+  const [SearchTerm, setSearchTerm] = useState("")
 
-  const onChangeSearch = event => {
-    setSearchTerms(event.currentTarget.value);
+  const searchHandler = event => {
+    setSearchTerm(event.currentTarget.value)
+    props.refreshFunction(event.currentTarget.value) //랜딩페이지(부모 컴포넌트)에 정보 업데이트 ->newSearchTerm
+  }
 
-    props.refreshFunction(event.currentTarget.value);
-  };
   return (
     <div>
       <Search
-        value={SearchTerms}
         placeholder="검색어를 입력하세요"
-        onChange={onChangeSearch}
+        onChange={searchHandler}
         style={{ width: 200 }}
+        value={SearchTerm}
       />
     </div>
   );
