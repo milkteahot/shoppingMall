@@ -98,12 +98,12 @@ function LandingPage() {
       limit: Limit,
       filters: Filters,
       searchTerm: newSearchTerm
-    };
+    }
 
     setSkip(0)
     setSearchTerm(newSearchTerm)
     getProducts(variables)
-  };
+  }
 
   return (
     <div style={{ width: "75%", margin: "3rem auto" }}>
