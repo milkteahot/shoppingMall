@@ -4,7 +4,8 @@ import Axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
 // import Meta from "antd/lib/card/Meta"
 import SearchFeature from "./Sections/SearchFeature";
-// import { continents, price } from './Sections/Datas';
+import { continents } from './Sections/Datas';
+import CheckBox from '../LandingPage/Sections/CheckBox';
 
 const { Meta } = Card;
 
@@ -36,7 +37,6 @@ function LandingPage() {
             setProducts(response.data.productInfo);
           }
           setPostSize(response.data.postSize);
-        //   console.log("postsize:", PostSize)
         } 
        else {
         alert("상품을 가져오는데 실패했습니다.");
@@ -46,7 +46,6 @@ function LandingPage() {
 
   const loadMoreHandler = () => {
     let skip = Skip + Limit;
-    // console.log("skip: ", skip)
     let variables = {
       skip: skip,
       limit: Limit,
@@ -98,6 +97,10 @@ function LandingPage() {
         </h2>
       </div>
       {/* Filter */}
+
+      {/* CheckBox */}
+      <CheckBox list={continents} />
+
 
       {/* Search */}
       <div

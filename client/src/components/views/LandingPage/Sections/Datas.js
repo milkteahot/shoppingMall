@@ -5,27 +5,31 @@ const continents = [
     },
     {
         "_id" : 2,
-        "name" : "Africa"
+        "name" : "Europe"
     },
     {
         "_id" : 3,
-        "name" : "Africa"
+        "name" : "Asia"
     },
     {
         "_id" : 4,
-        "name" : "Africa"
+        "name" : "America"
     },
     {
         "_id" : 5,
-        "name" : "Africa"
+        "name" : "Latin America"
     },
     {
         "_id" : 6,
-        "name" : "Africa"
+        "name" : "Australia"
     },
     {
         "_id" : 7,
-        "name" : "Africa"
+        "name" : "Antartica"
     },
 
 ]
+
+export {
+    continents
+}

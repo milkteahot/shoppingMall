@@ -1,10 +1,9 @@
-# shoppingMall
+# ShoppingMall
 
 ## 기능 소개
 ### 1. 업로드 페이지 ↑
 ```
 1-1. 업로드 기능
-
     - react-dropzone을 이용하여 이미지 드래그 앤 드랍 구현
     - multer를 이용하여 이미지 저장
     - 이미지 클릭하여 지우기
