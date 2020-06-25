@@ -65,23 +65,23 @@ router.post("/products", (req, res) => {
 //   }
 
     // console.log("findArgs", findArgs);
-    console.log("term", term)
+    // console.log("term", term)
 
-  if (term) {
-    Product.find()
-        .find({ "title": { '$regex': term }})
-      .populate("writer")
-      .skip(skip)
-      .limit(limit)
-      .exec((err, products) => {
-        if (err) return res.status(400).json({ success: false, err });
-        res.status(200).json({ 
-            success: true, products,
-            postSize: products.length
+  // if (term) {
+  //   Product.find()
+  //       .find({ "title": { '$regex': term }})
+  //     .populate("writer")
+  //     .skip(skip)
+  //     .limit(limit)
+  //     .exec((err, productInfo) => {
+  //       if (err) return res.status(400).json({ success: false, err });
+  //       res.status(200).json({ 
+  //           success: true, productInfo,
+  //           postSize: productInfo.length
         
-        });
-      });
-  } else {
+  //       });
+  //     });
+  // } else {
     // product collection에 들어있는 모든 상품 정보 가져오기
     Product.find()
       .populate("writer")
@@ -96,6 +96,7 @@ router.post("/products", (req, res) => {
         });
       });
   }
-});
+// }
+);
 
 module.exports = router;
