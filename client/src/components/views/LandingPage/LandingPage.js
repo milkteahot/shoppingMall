@@ -4,8 +4,8 @@ import Axios from "axios";
 import { Icon, Col, Card, Row } from "antd";
 // import Meta from "antd/lib/card/Meta"
 import SearchFeature from "./Sections/SearchFeature";
-import { continents } from './Sections/Datas';
-import CheckBox from '../LandingPage/Sections/CheckBox';
+import { continents } from "./Sections/Datas";
+import CheckBox from "../LandingPage/Sections/CheckBox";
 
 const { Meta } = Card;
 
@@ -30,15 +30,14 @@ function LandingPage() {
 
   const getProducts = variables => {
     Axios.post("/api/product/products", variables).then(response => {
-        if (response.data.success) {
-          if (variables.loadMore) {
-            setProducts([...Products, ...response.data.productInfo]);
-          } else {
-            setProducts(response.data.productInfo);
-          }
-          setPostSize(response.data.postSize);
-        } 
-       else {
+      if (response.data.success) {
+        if (variables.loadMore) {
+          setProducts([...Products, ...response.data.productInfo]);
+        } else {
+          setProducts(response.data.productInfo);
+        }
+        setPostSize(response.data.postSize);
+      } else {
         alert("상품을 가져오는데 실패했습니다.");
       }
     });
@@ -49,7 +48,7 @@ function LandingPage() {
     let variables = {
       skip: skip,
       limit: Limit,
-      loadMore: true,
+      loadMore: true
     };
     getProducts(variables);
     setSkip(skip);
@@ -76,7 +75,24 @@ function LandingPage() {
     );
   });
 
-  const updateSearchTerm = (newSearchTerm) => {
+  const showFilteredResults = filters => {
+    let variables = {
+      skip: 0,
+      limit: Limit,
+      filters: filters
+    };
+    getProducts(variables);
+    setSkip(0)
+  };
+
+  const handleFilters = (filters, category) => {
+    const newFilters = { ...Filters };
+    newFilters[category] = filters;
+
+    showFilteredResults(newFilters);
+  };
+
+  const updateSearchTerm = newSearchTerm => {
     let variables = {
       skip: 0,
       limit: Limit,
@@ -99,8 +115,10 @@ function LandingPage() {
       {/* Filter */}
 
       {/* CheckBox */}
-      <CheckBox list={continents} />
-
+      <CheckBox
+        list={continents}
+        handleFilters={filters => handleFilters(filters, "continents")}
+      />
 
       {/* Search */}
       <div
@@ -117,11 +135,11 @@ function LandingPage() {
 
       <br />
 
-      {PostSize >= Limit && 
+      {PostSize >= Limit && (
         <div style={{ display: "flex", justifyContent: "center" }}>
           <button onClick={loadMoreHandler}>더보기</button>
         </div>
-      }
+      )}
     </div>
   );
 }

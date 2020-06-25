@@ -21,6 +21,7 @@ function CheckBox(props) {
       newChecked.splice(currentIndex, 1)
     }
     setChecked(newChecked)
+    props.handleFilters(newChecked) //부모 컴포넌트에 전달
   };
 
   const renderCheckboxLists = () =>
