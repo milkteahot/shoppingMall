@@ -69,7 +69,7 @@ function LandingPage() {
             </a>
           }
         >
-          <Meta title={product.title} description={`${product.price}원`} />
+          <Meta title={product.title} />
         </Card>
       </Col>
     );
@@ -117,7 +117,7 @@ function LandingPage() {
       {/* CheckBox */}
       <CheckBox
         list={continents}
-        handleFilters={filters => handleFilters(filters, "continents")}
+        handleFilters={filters => handleFilters(filters, "카테고리")}
       />
 
       {/* Search */}

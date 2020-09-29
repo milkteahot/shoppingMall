@@ -9,6 +9,7 @@ import NavBar from "./views/NavBar/NavBar";
 import Footer from "./views/Footer/Footer"
 import UploadProductPage from "./views/UploadProductPage/UploadProductPage.js";
 import UploadContentPage from "./views/UploadContentPage/UploadContentPage.js";
+import DetailProductPage from "./views/DetailProductPage.js/DetailProductPage";
 
 
 //null   Anyone Can go inside
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/register" component={Auth(RegisterPage, false)} />
           <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
           <Route exact path="/content/upload" component={Auth(UploadContentPage, true)} />
+          <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
         </Switch>
       </div>
       <Footer />

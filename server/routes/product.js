@@ -22,10 +22,10 @@ router.post("/image", (req, res) => {
   //가져온 이미지를 저장
   upload(req, res, err => {
     if (err) {
-      return req.json({ sucess: false, err });
+      return req.json({ success: false, err });
     }
     return res.json({
-      sucess: true,
+      success: true,
       filePath: res.req.file.path,
       fileName: res.req.file.filename
     });
