@@ -85,6 +85,7 @@ router.post("/products", (req, res) => {
     // product collection에 들어있는 모든 상품 정보 가져오기
     Product.find(findArgs)
       .populate("writer")
+      .sort({_id:-1})
       .skip(skip)
       .limit(limit)
       .exec((err, productInfo) => {
